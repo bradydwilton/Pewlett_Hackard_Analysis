@@ -35,3 +35,25 @@ group by title
 order by count desc;
 
 commit
+
+-- Deliverable 2
+-- Create a table of mentorship-eligible employees who were born
+-- between 01/01/1965 and 12/31/1965
+select distinct on (emp_no) a.emp_no,
+	a.first_name,
+	a.last_name,
+	a.birth_date,
+	b.from_date,
+	b.to_date,
+	c.title
+into mentorship_eligibility
+from employees as a,
+	dept_employees as b,
+	titles as c
+where a.emp_no = b.emp_no
+and a.emp_no = c.emp_no
+and a.birth_date between '1965-01-01' and '1965-12-31'
+and c.to_date = '9999-01-01'
+order by emp_no, to_date desc;
+
+commit;
